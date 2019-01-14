@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="eng"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header">
+    <form th:action="@{'/search/{page}'(page = 1)}">
+    <nav class="navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{'/{page}'(page = 1)}">Parts</a>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/new}">New part</a></li>
+                </ul>
+                <label class="navbar-brand">Search part</label>
+                <input type="text" class="navbar-brand" id="name" placeholder="Search.." th:name="name"  maxlength="30"/>
+                <button type="submit" class="navbar-brand">Search</button>
+            </div>
+        </div>
+    </nav>
+    </form>
+</div>
+
+
+</html>

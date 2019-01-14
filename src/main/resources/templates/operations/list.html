@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="part">
+    <table class="table table-bordered table-hover horizontal-align">
+        <thead>
+        <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 80%">Наименование</th>
+            <th style="width: 80">Необходимость</th>
+            <th style="width: 80">Количество</th>
+
+            <!--<th class="dropdown" style="width: 20%">Date-->
+                <!--<a th:href="@{'/sort/{sortDate}' (sortDate = 'ASC')}"><i class="fa fa-chevron-circle-up"></i></a>-->
+                <!--<a th:href="@{'/sort/{sortDate}' (sortDate = 'DESC')}"><i class="fa fa-chevron-circle-down"></i></a>-->
+            <!--</th>-->
+            <!--<th style="width: 5%">Done</th>-->
+            <th style="width: 5%">Edit</th>
+            <th style="width: 5%">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="part : ${parts}">
+            <!--<td th:text="${part.getPartName()}" style="text-align: center"></td>-->
+            <td th:text="${part.getPartId()}" style="text-align: center">#</td>
+            <td th:text="${part.getPartName()}"></td>
+            <td th:text="${part.isNecessary()} ? 'Да' : 'Нет'" align="center"></td>
+            <td th:text="${part.getAmount()}" align="center"></td>
+            <!--<td th:text="${note.message}">Message</td>-->
+            <!--<td style="text-align: center">-->
+                <!--<i th:if="${note.done} == true" class="fa fa-plus-square-o" style="font-size:20px;color:#337ab7"></i>-->
+                <!--<i th:if="${note.done} == false" class="fa fa-minus-square-o" style="font-size:20px;color:#337ab7"></i>-->
+            <!--</td>-->
+            <td style="text-align: center"><a th:href="@{'/edit/{id}'(id=${part.getPartId()})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+            <td style="text-align: center"><a th:href="@{'/delete/{part}'(part=${part.getPartId()})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div id="pages">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" th:href="@{'{list}/{page}?{question}'(page = 1, list = ${list}, question = ${question})}">First</a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'{list}/{page}?{question}'(page = ${page - 1}, list = ${list}, question = ${question})}" th:if="${page - 1} >= 1" th:text="${page - 1}"></a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'{list}/{page}?{question}'(page = ${page}, list = ${list}, question = ${question})}" th:text="${page}"></a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'{list}/{page}?{question}'(page = ${page + 1}, list = ${list}, question = ${question})}" th:if="${page + 1} <= ${pageCount}" th:text="${page + 1}" ></a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'{list}/{page}?{question}'(page = ${pageCount}, list = ${list}, question = ${question})}">Last</a></li>
+            </ul>
+        </nav>
+        <!--<div class="topnav">-->
+            <!--<a class="active" th:href="@{'/{page}'(page = 1)}">All parts</a>-->
+            <!--<a href="#news"></a>-->
+            <!--<a href="#contact">Contact</a>-->
+            <!--<a href="#about">About</a>-->
+        <!--</div>-->
+    </div>
+    <div id = "pages2">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" class="btn btn-secondary" th:href="@{'/{page}'(page = 1)}">Все детали</a>
+            <a type="button" class="btn btn-secondary" th:href="@{'/filter/{page}?filter=true'(page = 1)}">Необходимые</a>
+            <a type="button" class="btn btn-secondary" th:value="false" th:href="@{'/filter/{page}?filter=false'(page = 1)}">Опциональные</a>
+        </div>
+    </div>
+    <div>
+        <table class="table table-bordered table-hover horizontal-align">
+            <thead>
+            <tr>
+                <th style="width: 60%">Можно собрать</th>
+                <th style="width: 60%" th:text="${computers}"></th>
+                <th style="width: 60%">компьютеров</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+</html>
